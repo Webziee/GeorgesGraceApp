@@ -15,6 +15,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi = 23
+        renderscriptSupportModeEnabled = true
     }
 
     buildTypes {
@@ -37,12 +40,32 @@ android {
 
 dependencies {
 
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    implementation("com.google.firebase:firebase-auth-ktx") // For Firebase Authentication
+
+    // Firestore dependency
+//    implementation(libs.firebase.firestore.ktx)
+
+    // Other dependencies
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+//    implementation(libs.firebase.storage.ktx)
+
+    // Test dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.github.bumptech.glide:glide:4.15.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.0")
+    implementation ("jp.wasabeef:glide-transformations:4.3.0")
+
+
+
 }
