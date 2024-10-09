@@ -4,6 +4,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.goergesgraceapp.BookingBottomSheet
+import com.example.goergesgraceapp.ExplorePage
 import com.example.goergesgraceapp.R
 import com.squareup.picasso.Picasso
 
@@ -33,9 +35,17 @@ class BookingsCardAdapter(private var bookingsList: List<Bookings>) : RecyclerVi
         }
 
         holder.unitNumber.text = "Unit ${currentItem.unitNumber}"
-        holder.unitPrice.text = "R${currentItem.price} (off peak)"
+        holder.unitPrice.text = "R${currentItem.price} per night"
         holder.unitSleepers.text = "${currentItem.sleeper} Sleepers"
         holder.unitAvailability.text = currentItem.status
+
+        holder.itemView.setOnClickListener {
+            val bottomSheetFragment = BookingBottomSheet(currentItem)
+            bottomSheetFragment.show(
+                (holder.itemView.context as ExplorePage).supportFragmentManager,
+                bottomSheetFragment.tag
+            )
+        }
     }
 
     override fun getItemCount(): Int {

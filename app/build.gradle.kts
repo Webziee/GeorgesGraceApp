@@ -54,6 +54,9 @@ dependencies {
     //google maps
     implementation ("com.google.android.gms:play-services-maps:18.0.2")
 
+    //material
+    implementation ("com.google.android.material:material:1.9.0")
+
 
     // Firestore dependency
     // implementation(libs.firebase.firestore.ktx)

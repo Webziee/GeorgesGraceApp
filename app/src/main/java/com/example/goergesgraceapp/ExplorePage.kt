@@ -21,6 +21,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
+import com.squareup.picasso.Picasso
+
 
 class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
 
@@ -95,7 +101,33 @@ class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    // Google Maps
+    private fun showBottomSheet(booking: Bookings) {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val bottomSheetView = layoutInflater.inflate(R.layout.bottom_slide_up, null)
+
+        // Find views inside the bottom sheet layout
+        val bottomSheetunit = bottomSheetView.findViewById<TextView>(R.id.BottomSheetUnit)
+        val bottomSheetprice = bottomSheetView.findViewById<TextView>(R.id.BottomSheetPrice)
+        val bottomSheetsleeper = bottomSheetView.findViewById<TextView>(R.id.BottomSheetSleeper)
+        val bottomSheetImage = bottomSheetView.findViewById<ImageView>(R.id.BottomSheetImage)
+
+// Set data for the specific booking item
+        bottomSheetunit.text = "Unit ${booking.unitNumber}"
+        bottomSheetprice.text = "R${booking.price} (off peak)\nper night"
+        bottomSheetsleeper.text = "Sleeper: ${booking.sleeper}"
+
+// Load the image (if there is one) using Picasso or a similar library
+        if (!booking.unitImages.isNullOrEmpty()) {
+            Picasso.get().load(booking.unitImages).into(bottomSheetImage)
+        } else {
+            // Optionally, set a placeholder image if there's no image available
+            bottomSheetImage.setImageResource(R.drawable.placeholderimage)
+        }
+        }
+
+
+
+        // Google Maps
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 
