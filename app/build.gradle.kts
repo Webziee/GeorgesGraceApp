@@ -40,16 +40,12 @@ android {
 
 dependencies {
 
-    // Retrofit for making API requests
+    // Retrofit for API requests
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     // OkHttp for HTTP logging (optional but helpful for debugging)
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
-
-    //firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-    implementation("com.google.firebase:firebase-auth-ktx") // For Firebase Authentication
 
     //google maps
     implementation ("com.google.android.gms:play-services-maps:18.0.2")
@@ -57,9 +53,8 @@ dependencies {
     //material
     implementation ("com.google.android.material:material:1.9.0")
 
-
-    // Firestore dependency
-    // implementation(libs.firebase.firestore.ktx)
+    //material ui
+    implementation ("com.google.android.material:material:1.9.0")
 
     // Other dependencies
     implementation("com.google.android.gms:play-services-auth:21.2.0")
@@ -71,6 +66,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation(libs.androidx.core)
 
     // Test dependencies
     testImplementation(libs.junit)

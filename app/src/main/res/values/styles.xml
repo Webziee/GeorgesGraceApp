@@ -14,6 +14,17 @@
             <item name="android:textSize">16sp</item> <!-- Text size -->
         </style>
 
+
+        <!-- Date Text Appearance Style -->
+        <style name="CalendarDateText" parent="TextAppearance.AppCompat.Medium">
+            <item name="android:textColor">#FFFFFF</item> <!-- White text color -->
+        </style>
+
+        <!-- Weekday Text Appearance Style -->
+        <style name="CalendarWeekdayText" parent="TextAppearance.AppCompat.Medium">
+            <item name="android:textColor">#FFFFFF</item> <!-- White text color -->
+        </style>
+
 </resources>
 
 

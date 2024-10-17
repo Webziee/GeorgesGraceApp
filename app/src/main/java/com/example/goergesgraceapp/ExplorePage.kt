@@ -2,6 +2,7 @@ package com.example.goergesgraceapp
 
 import Bookings
 import BookingsCardAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -101,7 +102,7 @@ class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    private fun showBottomSheet(booking: Bookings) {
+    fun showBottomSheet(booking: Bookings) {
         val bottomSheetDialog = BottomSheetDialog(this)
         val bottomSheetView = layoutInflater.inflate(R.layout.bottom_slide_up, null)
 
@@ -110,24 +111,37 @@ class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
         val bottomSheetprice = bottomSheetView.findViewById<TextView>(R.id.BottomSheetPrice)
         val bottomSheetsleeper = bottomSheetView.findViewById<TextView>(R.id.BottomSheetSleeper)
         val bottomSheetImage = bottomSheetView.findViewById<ImageView>(R.id.BottomSheetImage)
+        val bookNowButton = bottomSheetView.findViewById<Button>(R.id.bookingButton)
 
-// Set data for the specific booking item
+        // Set data for the specific booking item
         bottomSheetunit.text = "Unit ${booking.unitNumber}"
         bottomSheetprice.text = "R${booking.price} (off peak)\nper night"
-        bottomSheetsleeper.text = "Sleeper: ${booking.sleeper}"
+        bottomSheetsleeper.text = "${booking.sleeper} Sleeper"
 
-// Load the image (if there is one) using Picasso or a similar library
+        // Load the image (if there is one) using Picasso
         if (!booking.unitImages.isNullOrEmpty()) {
             Picasso.get().load(booking.unitImages).into(bottomSheetImage)
         } else {
-            // Optionally, set a placeholder image if there's no image available
             bottomSheetImage.setImageResource(R.drawable.placeholderimage)
         }
+
+        bookNowButton.setOnClickListener {
+            Log.d("BookNowButton", "Book Now button clicked")
+
+            // Start the next activity
+            val intent = Intent(this@ExplorePage, Selected_Card::class.java).apply {
+                putExtra("unitNumber", booking.unitNumber)
+                putExtra("price", booking.price)
+                putExtra("sleeper", booking.sleeper)
+                putExtra("imageUrl", booking.unitImages)
+            }
+            startActivity(intent)
         }
+            bottomSheetDialog.setContentView(bottomSheetView)
+        bottomSheetDialog.show()
+    }
 
-
-
-        // Google Maps
+    // Google Maps
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 

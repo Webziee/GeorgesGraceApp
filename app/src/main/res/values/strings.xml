@@ -13,6 +13,21 @@
     <string name="available_rooms">Available Rooms</string>
     <string name="accommodation">Accommodation</string>
     <string name="wambaths_bela_bela_limpopo_south_africa">Wambaths, Bela-Bela, Limpopo, South Africa</string>
+    <string name="number_of_days">Number of Days</string>
+    <string name="number_of_children">Number of Children</string>
+    <string name="number_of_adults">Number of Adults</string>
+    <string name="_4">4</string>
+    <string name="_2">2</string>
+    <string name="breakdown">Breakdown</string>
+    <string name="date_range">Date Range</string>
+    <string name="book_now">Book Now</string>
+    <string name="number_of_nights">Number of Nights</string>
+    <string name="card_number">Card Number</string>
+    <string name="cardholders_name">Cardholders Name</string>
+    <string name="expiry">Expiry</string>
+    <string name="discount_code">Discount Code</string>
+    <string name="apply">Apply</string>
+    <string name="pay">Pay</string>
 </resources>
 
 

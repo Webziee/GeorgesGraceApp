@@ -28,7 +28,7 @@ class BookingBottomSheet(private val booking: Bookings) : BottomSheetDialogFragm
         // Set data for the specific booking item
         bottomSheetunit.text = "Unit ${booking.unitNumber}"
         bottomSheetprice.text = "R${booking.price} (off peak)\nper night"
-        bottomSheetsleeper.text = "Sleeper: ${booking.sleeper}"
+        bottomSheetsleeper.text = "${booking.sleeper} Sleeper"
 
 
         // Load the image using Picasso or a placeholder if no image exists

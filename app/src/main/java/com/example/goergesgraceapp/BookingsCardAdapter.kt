@@ -1,3 +1,4 @@
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,15 +39,14 @@ class BookingsCardAdapter(private var bookingsList: List<Bookings>) : RecyclerVi
         holder.unitPrice.text = "R${currentItem.price} per night"
         holder.unitSleepers.text = "${currentItem.sleeper} Sleepers"
         holder.unitAvailability.text = currentItem.status
+        Log.d("BookingsCardAdapter", "Unit Number in adapter: ${currentItem.unitNumber}")
 
+        //call the showBottomSheet() method from ExplorePage
         holder.itemView.setOnClickListener {
-            val bottomSheetFragment = BookingBottomSheet(currentItem)
-            bottomSheetFragment.show(
-                (holder.itemView.context as ExplorePage).supportFragmentManager,
-                bottomSheetFragment.tag
-            )
+            (holder.itemView.context as? ExplorePage)?.showBottomSheet(currentItem)
         }
     }
+
 
     override fun getItemCount(): Int {
         return bookingsList.size

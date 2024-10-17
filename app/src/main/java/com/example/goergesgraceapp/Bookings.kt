@@ -1,6 +1,6 @@
 data class Bookings(
     val id: Int? = null,
-    val unitNumber: Int = 0,
+    val unitNumber: String = "",
     val price: Int = 0,
     val sleeper: Int = 0,
     val status: String = "",
