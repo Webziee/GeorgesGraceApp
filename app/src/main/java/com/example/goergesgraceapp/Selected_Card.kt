@@ -1,7 +1,11 @@
 package com.example.goergesgraceapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.CalendarView
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,6 +28,20 @@ class Selected_Card : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_selected_card)
+
+        // Set the content to fullscreen, hiding the status bar
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                )
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+
         setContentView(R.layout.activity_selected_card)
 
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
@@ -99,6 +117,16 @@ class Selected_Card : AppCompatActivity() {
 
         // Load image using Picasso, add a placeholder for safety
         Picasso.get().load(imageUrl).placeholder(R.drawable.placeholderimage).into(unitImageView)
+
+
+        val bookButton = findViewById<Button>(R.id.BookNowButton)
+
+        bookButton.setOnClickListener {
+            Toast.makeText(this, "All rooms Button Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, PaymentPage::class.java)
+                startActivity(intent)
+        }
+
 
         // Apply window insets if necessary
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
