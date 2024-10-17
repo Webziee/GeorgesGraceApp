@@ -63,7 +63,8 @@
                 android:layout_height="55dp"
                 android:background="@drawable/custom_edittext_background"
                 android:padding="10dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:inputType="text"/>
 
             <!-- Card Number -->
             <TextView
@@ -72,7 +73,7 @@
                 android:text="@string/card_number"
                 android:paddingTop="20dp"
                 android:paddingBottom="10dp"
-                android:textColor="#80000000"/>
+                android:textColor="#80000000" />
 
             <!-- Card Number Input Field with Icon Inside -->
             <EditText
@@ -155,32 +156,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="15dp">
 
-                <!-- Discount Code Input Field -->
-                <EditText
-                    android:id="@+id/discount_code"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_edittext_background"
-                    android:padding="10dp"
-                    android:textSize="16sp"
-                    android:hint="Discount Code" />
-
-                <!-- Apply Button -->
-                <Button
-                    android:id="@+id/apply_discount"
+                <!-- Discount Label -->
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:text="Apply"
-                    android:background="@color/transparentColor"
-                    android:textColor="@color/black"
-                    android:padding="10dp"/>
+                    android:layout_height="wrap_content"
+                    android:text="Discount"
+                    android:paddingBottom="5dp"
+                    android:textSize="14sp"
+                    android:textColor="#80000000"/>
+
+                <!-- Horizontal Layout for EditText and Button -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Discount Code Input Field -->
+                    <EditText
+                        android:id="@+id/discount_code"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_edittext_background"
+                        android:padding="10dp"
+                        android:textSize="16sp"/>
+
+                    <!-- Apply Button -->
+                    <Button
+                        android:id="@+id/apply_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apply"
+                        android:background="@color/transparentColor"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="10dp"
+                        android:padding="10dp"/>
+                </LinearLayout>
+
             </LinearLayout>
+
 
             <!-- Pay Button -->
             <Button

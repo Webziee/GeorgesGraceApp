@@ -1,6 +1,8 @@
 package com.example.goergesgraceapp
 
+import ImageAdapter
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,6 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -42,8 +46,6 @@ class Selected_Card : AppCompatActivity() {
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
 
-        setContentView(R.layout.activity_selected_card)
-
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
         val selectedDatesTextView = findViewById<TextView>(R.id.selectedDates)
         val numberOfDaysTextView = findViewById<TextView>(R.id.numberOfDays)
@@ -60,14 +62,12 @@ class Selected_Card : AppCompatActivity() {
 
             if (startDate == null) {
                 startDate = selectedDate
-                Toast.makeText(this, "${dateFormatter.format(selectedDate)}", Toast.LENGTH_SHORT).show()
-
                 // Update the selected dates text
                 selectedDatesTextView.text = "${dateFormatter.format(selectedDate)}"
             } else if (endDate == null && selectedDate > startDate!!) {
                 // Select end date if it’s after the start date
                 endDate = selectedDate
-                val numDays = TimeUnit.MILLISECONDS.toDays(endDate!! - startDate!!) - 1
+                val numDays = TimeUnit.MILLISECONDS.toDays(endDate!! - startDate!!) + 1
 
                 // Calculate the total price
                 val totalPrice = numDays * pricePerNight
@@ -91,12 +91,39 @@ class Selected_Card : AppCompatActivity() {
             }
         }
 
+        class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                outRect.right = space
+            }
+        }
+
+        // Initialize RecyclerView for horizontal image scrolling
+        val recyclerView = findViewById<RecyclerView>(R.id.imagerecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // List of image URLs
+        val imageUrls = listOf(
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Constantia-Guest-House-3.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Southern-Suburbs-Apartment-4.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Southern-Suburbs-Apartment-5.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/St-James-Guest-House-2.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Constantia-Guest-House-6.jpg"
+        )
+
+        // Set the adapter with a click listener
+        recyclerView.adapter = ImageAdapter(imageUrls) { imageUrl ->
+            // Launch a new activity or fragment with the selected image URL
+            val intent = Intent(this, fullscreen::class.java)
+            intent.putExtra("imageUrl", imageUrl)
+            startActivity(intent)
+        }
 
         // Retrieve data passed from the previous activity/fragment
         val unitNumber = intent.getStringExtra("unitNumber")
         val price = intent.getIntExtra("price", 0)
         val sleeper = intent.getIntExtra("sleeper", 0)
         val imageUrl = intent.getStringExtra("imageUrl")
+
         // Find views in the layout
         val unitNumberTextView = findViewById<TextView>(R.id.SelectedSheetUnit)
         val priceTextView = findViewById<TextView>(R.id.SelectedSheetPrice)
@@ -105,7 +132,7 @@ class Selected_Card : AppCompatActivity() {
 
         // Set data to the views
         unitNumberTextView.text = "Unit $unitNumber"
-        priceTextView.text = "Price R$price\nper night"
+        priceTextView.text = "Price R$price"
         sleeperTextView.text = "Sleeper $sleeper"
 
         // Debug: Check for nulls and log appropriately
@@ -122,11 +149,9 @@ class Selected_Card : AppCompatActivity() {
         val bookButton = findViewById<Button>(R.id.BookNowButton)
 
         bookButton.setOnClickListener {
-            Toast.makeText(this, "All rooms Button Clicked", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PaymentPage::class.java)
-                startActivity(intent)
+            startActivity(intent)
         }
-
 
         // Apply window insets if necessary
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

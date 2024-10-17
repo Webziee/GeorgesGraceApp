@@ -28,6 +28,10 @@
     <string name="discount_code">Discount Code</string>
     <string name="apply">Apply</string>
     <string name="pay">Pay</string>
+    <string name="per_night">Per Night</string>
+    <string name="date_selection">Date Selection</string>
+    <string name="unit">Unit</string>
+    <string name="safety_and_property">Safety and Property</string>
 </resources>
 
 
