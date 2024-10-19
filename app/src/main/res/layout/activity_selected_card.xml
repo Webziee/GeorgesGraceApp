@@ -36,7 +36,8 @@
         android:orientation="horizontal"
         android:padding="1dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_image" />
+        tools:listitem="@layout/item_image"
+            />
 
 
 

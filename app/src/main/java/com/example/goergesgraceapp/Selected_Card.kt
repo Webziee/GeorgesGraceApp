@@ -67,7 +67,7 @@ class Selected_Card : AppCompatActivity() {
             } else if (endDate == null && selectedDate > startDate!!) {
                 // Select end date if it’s after the start date
                 endDate = selectedDate
-                val numDays = TimeUnit.MILLISECONDS.toDays(endDate!! - startDate!!) + 1
+                val numDays = TimeUnit.MILLISECONDS.toDays(endDate!! - startDate!!)
 
                 // Calculate the total price
                 val totalPrice = numDays * pricePerNight
@@ -91,11 +91,6 @@ class Selected_Card : AppCompatActivity() {
             }
         }
 
-        class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                outRect.right = space
-            }
-        }
 
         // Initialize RecyclerView for horizontal image scrolling
         val recyclerView = findViewById<RecyclerView>(R.id.imagerecyclerView)

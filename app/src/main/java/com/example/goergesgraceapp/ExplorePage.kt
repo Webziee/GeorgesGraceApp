@@ -25,6 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.view.LayoutInflater
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -114,33 +115,33 @@ class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
         val bottomSheetImage = bottomSheetView.findViewById<ImageView>(R.id.BottomSheetImage)
         val bookNowButton = bottomSheetView.findViewById<Button>(R.id.bookingButton)
 
-//        // Initialize RecyclerView for horizontal image scrolling
-//        val recyclerView = findViewById<RecyclerView>(R.id.imagerecyclerView)
-//        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-//
-//        // List of image URLs
-//        val imageUrls = listOf(
-//            "https://www.artefect.co.za/wp-content/uploads/2018/04/Constantia-Guest-House-3.jpg",
-//            "https://www.artefect.co.za/wp-content/uploads/2018/04/Southern-Suburbs-Apartment-4.jpg",
-//            "https://www.artefect.co.za/wp-content/uploads/2018/04/Southern-Suburbs-Apartment-5.jpg",
-//            "https://www.artefect.co.za/wp-content/uploads/2018/04/St-James-Guest-House-2.jpg",
-//            "https://www.artefect.co.za/wp-content/uploads/2018/04/Constantia-Guest-House-6.jpg"
-//        )
-//
-//        // Set the adapter with a click listener
-//        recyclerView.adapter = ImageAdapter(imageUrls) { imageUrl ->
-//            // Launch a new activity or fragment with the selected image URL
-//            val intent = Intent(this, fullscreen::class.java)
-//            intent.putExtra("imageUrl", imageUrl)
-//            startActivity(intent)
-//        }
+        // Initialize RecyclerView for horizontal image scrolling from bottomSheetView, not from activity
+        val recyclerView = bottomSheetView.findViewById<RecyclerView>(R.id.imagerecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // List of image URLs
+        val imageUrls = listOf(
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Constantia-Guest-House-3.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Southern-Suburbs-Apartment-4.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Southern-Suburbs-Apartment-5.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/St-James-Guest-House-2.jpg",
+            "https://www.artefect.co.za/wp-content/uploads/2018/04/Constantia-Guest-House-6.jpg"
+        )
+
+        // Set the adapter with a click listener
+        recyclerView.adapter = ImageAdapter(imageUrls) { imageUrl ->
+            // Launch a new activity or fragment with the selected image URL
+            val intent = Intent(this, fullscreen::class.java)
+            intent.putExtra("imageUrl", imageUrl)
+            startActivity(intent)
+        }
 
         // Set data for the specific booking item
         bottomSheetunit.text = "Unit ${booking.unitNumber}"
         bottomSheetprice.text = "R${booking.price} (off peak)\nper night"
         bottomSheetsleeper.text = "${booking.sleeper} Sleeper"
 
-        // Load the image (if there is one) using Picasso
+        // Load the main image using Picasso
         if (!booking.unitImages.isNullOrEmpty()) {
             Picasso.get().load(booking.unitImages).into(bottomSheetImage)
         } else {
@@ -159,9 +160,11 @@ class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
             }
             startActivity(intent)
         }
-            bottomSheetDialog.setContentView(bottomSheetView)
+
+        bottomSheetDialog.setContentView(bottomSheetView)
         bottomSheetDialog.show()
     }
+
 
     // Google Maps
     override fun onMapReady(map: GoogleMap) {
@@ -192,5 +195,6 @@ class ExplorePage : AppCompatActivity(), OnMapReadyCallback {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+
     }
 }
